@@ -1,0 +1,45 @@
+button {
+    img {
+        width: 1.25em;
+    }
+}
+
+
+:host {
+    text-align: center;
+}
+
+.logout {
+    padding-top: 5em;
+}
+
+.logBut {
+    padding: 15px 32px;
+}
+
+.divider{
+    width:5px;
+    height:auto;
+    display:inline-block;
+}
+
+.header-text-desktop {
+    width: 100vw;
+    font-size: 40px;
+  }
+  
+  .subheader-text-desktop {
+    width: 100vw;
+    font-size: 24px;
+  
+  }
+  
+  .header-text-mobile {
+    font-size: 25px;
+    width: 100vw;
+  }
+  
+  .subheader-text-mobile {
+    font-size: 12px;
+    width: 100vw;
+  }

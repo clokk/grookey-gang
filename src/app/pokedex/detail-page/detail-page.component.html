@@ -1,0 +1,70 @@
+<h1>{{ data.clickedMon.name }}</h1>
+
+
+<mat-card>
+    <mat-card-header>
+      <mat-card-title>#{{data.clickedMon.id }} {{ data.clickedMon.name }}</mat-card-title>
+      <mat-card-subtitle>Update your pokédex info for {{ data.clickedMon.name }}</mat-card-subtitle>
+    </mat-card-header>
+    <img mat-card-image *ngIf="(this.data.indiPokedex)?.shiny" [src]="data.clickedMon.shiny" />
+    <img mat-card-image *ngIf="!((this.data.indiPokedex)?.shiny)" [src]="data.clickedMon.img" />
+    <mat-card-content>
+            <button 
+            class="back-button"
+            type="button"
+            aria-label="back button"
+            (click)="backButton()">
+                <mat-icon aria-hidden="false" aria-label="Back Button">arrow_back</mat-icon>
+            </button>
+        <div class="info-div">
+                <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && !(this.data.indiPokedex)?.ballType" src="/assets/Bag_Poke_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Poké Ball'" src="/assets/Bag_Poke_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Premier Ball'" src="/assets/Bag_Premier_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Great Ball'" src="/assets/Bag_Great_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Ultra Ball'" src="/assets/Bag_Ultra_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Master Ball'" src="/assets/Bag_Master_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Beast Ball'" src="/assets/Bag_Beast_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Dive Ball'" src="/assets/Bag_Dive_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Dusk Ball'" src="/assets/Bag_Dusk_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Fast Ball'" src="/assets/Bag_Fast_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Friend Ball'" src="/assets/Bag_Friend_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Heal Ball'" src="/assets/Bag_Heal_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Heavy Ball'" src="/assets/Bag_Heavy_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Level Ball'" src="/assets/Bag_Level_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Love Ball'" src="/assets/Bag_Love_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Lure Ball'" src="/assets/Bag_Lure_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Luxury Ball'" src="/assets/Bag_Luxury_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Moon Ball'" src="/assets/Bag_Moon_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Nest Ball'" src="/assets/Bag_Nest_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Net Ball'" src="/assets/Bag_Net_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Quick Ball'" src="/assets/Bag_Quick_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Repeat Ball'" src="/assets/Bag_Repeat_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Timer Ball'" src="/assets/Bag_Timer_Ball_Sprite.png">
+            <img class='caught-img' *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.ballType === 'Dream Ball'" src="/assets/Bag_Dream_Ball_Sprite.png">
+        </div>
+        <div class="info-div" *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.hiddenAbility && (this.data.indiPokedex)?.shiny">
+            HA
+            {{(this.data.indiPokedex)?.individualValue}}iv
+            ✨
+        </div>
+        <div class="info-div" *ngIf="(this.data.indiPokedex)?.caught && (this.data.indiPokedex)?.hiddenAbility && !(this.data.indiPokedex)?.shiny">
+            HA
+            {{(this.data.indiPokedex)?.individualValue}}iv
+        </div>
+        <div class="info-div" *ngIf="(this.data.indiPokedex)?.caught && !(this.data.indiPokedex)?.hiddenAbility && (this.data.indiPokedex)?.shiny">
+            {{(this.data.indiPokedex)?.individualValue}}iv
+            ✨
+        </div>
+        <div class="info-div" *ngIf="(this.data.indiPokedex)?.caught && !(this.data.indiPokedex)?.hiddenAbility && !(this.data.indiPokedex)?.shiny">
+            {{(this.data.indiPokedex)?.individualValue}}iv
+            HA 
+        </div>
+        <div class="info-div" *ngIf="!((this.data.indiPokedex)?.caught)">
+            Undiscovered
+        </div>
+        <br>
+        <div>
+            <a mat-raised-button (click)="openPokedexInfoDialog()" target="blank"> Update {{ data.clickedMon.name }} </a>
+        </div> 
+    </mat-card-content>
+  </mat-card>

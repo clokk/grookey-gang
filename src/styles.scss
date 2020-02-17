@@ -1,0 +1,68 @@
+
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import '~@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat-core();
+
+
+//grookey green palette 
+
+$custom-grookey: (
+    50 : #f2f7ed,
+    100 : #deecd3,
+    200 : #c9e0b6,
+    300 : #b3d399,
+    400 : #a2c983,
+    500 : #92c06d,
+    600 : #8aba65,
+    700 : #7fb25a,
+    800 : #75aa50,
+    900 : #639c3e,
+    A100 : #f4ffee,
+    A200 : #d5ffbb,
+    A400 : #b5ff88,
+    A700 : #a5ff6e,
+    contrast: (
+        50 : #000000,
+        100 : #000000,
+        200 : #000000,
+        300 : #000000,
+        400 : #000000,
+        500 : #000000,
+        600 : #000000,
+        700 : #000000,
+        800 : #000000,
+        900 : #000000,
+        A100 : #000000,
+        A200 : #000000,
+        A400 : #000000,
+        A700 : #000000,
+    )
+);
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$grookey-gang-primary: mat-palette($custom-grookey);
+$grookey-gang-accent: mat-palette($mat-brown, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$grookey-gang-warn: mat-palette($mat-red);
+
+// Create the theme object (a Sass map containing all of the palettes).
+$grookey-gang-theme: mat-dark-theme($grookey-gang-primary, $grookey-gang-accent, $grookey-gang-warn);
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include angular-material-theme($grookey-gang-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

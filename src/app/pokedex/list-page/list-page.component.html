@@ -1,0 +1,165 @@
+<h1>Galarian Pokédex</h1>
+
+<mat-nav-list role="list">
+    <h3 mat-subheader class="list-stats">Caught: {{data.caughtCount}} | Shiny: {{data.shinyCount}} | Hidden Ability: {{data.hiddenAbilityCount}} | Rare Ball: {{data.rareBallCount}}</h3>
+    <div class="list-buttons">
+        <button mat-raised-button [copy-clipboard]='dexURL' (click)="copySnack()">Copy Pokédex URL</button>
+        <button mat-raised-button [matMenuTriggerFor]="menu">Filter By: {{ filterType }}</button>
+        <mat-menu #menu="matMenu">
+        <button mat-menu-item (click)="setAll()">All</button>
+        <button mat-menu-item (click)="setShiny()">Shiny</button>
+        <button mat-menu-item (click)="setHA()">Hidden Ability</button>
+        <button mat-menu-item (click)="setRare()">Rare Ball</button>
+        </mat-menu>
+    </div>
+    <div *ngIf="filterType === 'All'">
+    <mat-list-item (click)="data.getClickedMon(poke.data().name, poke.data().img, poke.data().shiny, poke.data().abilities, poke.id)" *ngFor="let poke of data.pokedex" [routerLink]="poke.data().name" role="listitem">
+        <h5>#{{ poke.id}}</h5>
+        <img class = "nav-img"  *ngIf="data.pokedexInfo[poke.id]?.shiny" src= '{{ poke.data().shiny }}' >
+        <img class = "nav-img"  *ngIf="!(data.pokedexInfo[poke.id]?.shiny)" src= '{{ poke.data().img }}' >
+        <h3>{{ poke.data().name }}</h3>
+        <h4 class="pokemon-hidden" *ngIf="data.pokedexInfo[poke.id]?.hiddenAbility"> HA ( {{ poke.data().abilities[-1] }} )</h4>
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && !(data.pokedexInfo[poke.id]?.ballType)" src="/assets/Bag_Poke_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Poké Ball'" src="/assets/Bag_Poke_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Premier Ball'" src="/assets/Bag_Premier_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Great Ball'" src="/assets/Bag_Great_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Ultra Ball'" src="/assets/Bag_Ultra_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Master Ball'" src="/assets/Bag_Master_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Beast Ball'" src="/assets/Bag_Beast_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dive Ball'" src="/assets/Bag_Dive_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dusk Ball'" src="/assets/Bag_Dusk_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Fast Ball'" src="/assets/Bag_Fast_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Friend Ball'" src="/assets/Bag_Friend_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heal Ball'" src="/assets/Bag_Heal_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heavy Ball'" src="/assets/Bag_Heavy_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Level Ball'" src="/assets/Bag_Level_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Love Ball'" src="/assets/Bag_Love_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Lure Ball'" src="/assets/Bag_Lure_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Luxury Ball'" src="/assets/Bag_Luxury_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Moon Ball'" src="/assets/Bag_Moon_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Nest Ball'" src="/assets/Bag_Nest_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Net Ball'" src="/assets/Bag_Net_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Quick Ball'" src="/assets/Bag_Quick_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Repeat Ball'" src="/assets/Bag_Repeat_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Timer Ball'" src="/assets/Bag_Timer_Ball_Sprite.png">
+        <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dream Ball'" src="/assets/Bag_Dream_Ball_Sprite.png">
+        <h4 class="pokemon-hidden" *ngIf="data.pokedexInfo[poke.id]?.hiddenAbility"> HA </h4>
+        <!-- <h4 class="pokemon-individual" *ngIf="(data.pokedexInfo[poke.id]?.individualValue > 0)">{{ data.pokedexInfo[poke.id]?.individualValue}}iv</h4> -->
+        <h4 class="pokemon-shiny" *ngIf="data.pokedexInfo[poke.id]?.shiny">✨</h4>
+    </mat-list-item>
+    </div>
+
+    <div *ngIf="filterType === 'Shiny'">
+            <div *ngFor="let poke of data.pokedex">
+                <mat-list-item (click)="data.getClickedMon(poke.data().name, poke.data().img, poke.data().shiny, poke.data().abilities, poke.id)" *ngIf="data.pokedexInfo[poke.id]?.shiny" [routerLink]="poke.data().name" role="listitem">
+                    <h5>#{{ poke.id}}</h5>
+                    <img class = "nav-img"  *ngIf="data.pokedexInfo[poke.id]?.shiny" src= '{{ poke.data().shiny }}' >
+                    <img class = "nav-img"  *ngIf="!(data.pokedexInfo[poke.id]?.shiny)" src= '{{ poke.data().img }}' >
+                    <h3>{{ poke.data().name }}</h3>
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && !(data.pokedexInfo[poke.id]?.ballType)" src="/assets/Bag_Poke_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Poké Ball'" src="/assets/Bag_Poke_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Premier Ball'" src="/assets/Bag_Premier_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Great Ball'" src="/assets/Bag_Great_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Ultra Ball'" src="/assets/Bag_Ultra_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Master Ball'" src="/assets/Bag_Master_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Beast Ball'" src="/assets/Bag_Beast_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dive Ball'" src="/assets/Bag_Dive_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dusk Ball'" src="/assets/Bag_Dusk_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Fast Ball'" src="/assets/Bag_Fast_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Friend Ball'" src="/assets/Bag_Friend_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heal Ball'" src="/assets/Bag_Heal_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heavy Ball'" src="/assets/Bag_Heavy_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Level Ball'" src="/assets/Bag_Level_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Love Ball'" src="/assets/Bag_Love_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Lure Ball'" src="/assets/Bag_Lure_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Luxury Ball'" src="/assets/Bag_Luxury_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Moon Ball'" src="/assets/Bag_Moon_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Nest Ball'" src="/assets/Bag_Nest_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Net Ball'" src="/assets/Bag_Net_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Quick Ball'" src="/assets/Bag_Quick_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Repeat Ball'" src="/assets/Bag_Repeat_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Timer Ball'" src="/assets/Bag_Timer_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dream Ball'" src="/assets/Bag_Dream_Ball_Sprite.png">
+                    <h4 class="pokemon-hidden" *ngIf="data.pokedexInfo[poke.id]?.hiddenAbility"> HA </h4>
+                    <!-- <h4 class="pokemon-individual" *ngIf="(data.pokedexInfo[poke.id]?.individualValue > 0)">{{ data.pokedexInfo[poke.id]?.individualValue}}iv</h4> -->
+                    <h4 class="pokemon-shiny" *ngIf="data.pokedexInfo[poke.id]?.shiny">✨</h4>
+                </mat-list-item>
+            </div>
+        </div>
+
+        <div *ngIf="filterType === 'Hidden Ability'">
+            <div *ngFor="let poke of data.pokedex">
+                <mat-list-item (click)="data.getClickedMon(poke.data().name, poke.data().img, poke.data().shiny, poke.data().abilities, poke.id)" *ngIf="data.pokedexInfo[poke.id]?.hiddenAbility" [routerLink]="poke.data().name" role="listitem">
+                    <h5>#{{ poke.id}}</h5>
+                    <img class = "nav-img"  *ngIf="data.pokedexInfo[poke.id]?.shiny" src= '{{ poke.data().shiny }}' >
+                    <img class = "nav-img"  *ngIf="!(data.pokedexInfo[poke.id]?.shiny)" src= '{{ poke.data().img }}' >
+                    <h3>{{ poke.data().name }}</h3>
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && !(data.pokedexInfo[poke.id]?.ballType)" src="/assets/Bag_Poke_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Poké Ball'" src="/assets/Bag_Poke_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Premier Ball'" src="/assets/Bag_Premier_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Great Ball'" src="/assets/Bag_Great_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Ultra Ball'" src="/assets/Bag_Ultra_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Master Ball'" src="/assets/Bag_Master_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Beast Ball'" src="/assets/Bag_Beast_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dive Ball'" src="/assets/Bag_Dive_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dusk Ball'" src="/assets/Bag_Dusk_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Fast Ball'" src="/assets/Bag_Fast_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Friend Ball'" src="/assets/Bag_Friend_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heal Ball'" src="/assets/Bag_Heal_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heavy Ball'" src="/assets/Bag_Heavy_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Level Ball'" src="/assets/Bag_Level_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Love Ball'" src="/assets/Bag_Love_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Lure Ball'" src="/assets/Bag_Lure_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Luxury Ball'" src="/assets/Bag_Luxury_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Moon Ball'" src="/assets/Bag_Moon_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Nest Ball'" src="/assets/Bag_Nest_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Net Ball'" src="/assets/Bag_Net_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Quick Ball'" src="/assets/Bag_Quick_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Repeat Ball'" src="/assets/Bag_Repeat_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Timer Ball'" src="/assets/Bag_Timer_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dream Ball'" src="/assets/Bag_Dream_Ball_Sprite.png">
+                    <h4 class="pokemon-hidden" *ngIf="data.pokedexInfo[poke.id]?.hiddenAbility"> HA </h4>
+                    <!-- <h4 class="pokemon-individual" *ngIf="(data.pokedexInfo[poke.id]?.individualValue > 0)">{{ data.pokedexInfo[poke.id]?.individualValue}}iv</h4> -->
+                    <h4 class="pokemon-shiny" *ngIf="data.pokedexInfo[poke.id]?.shiny">✨</h4>
+                </mat-list-item>
+            </div>
+        </div>
+
+        <div *ngIf="filterType === 'Rare Ball'">
+            <div *ngFor="let poke of data.pokedex">
+                <mat-list-item (click)="data.getClickedMon(poke.data().name, poke.data().img, poke.data().shiny, poke.data().abilities, poke.id)" *ngIf="(data.pokedexInfo[poke.id]?.ballType !== 'Poké Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Great Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Ultra Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Premier Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Poké Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Dive Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Dusk Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Fast Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Heal Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Poké Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Nest Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Net Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Quick Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Repeat Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Timer Ball') && (data.pokedexInfo[poke.id]?.ballType !== 'Luxury Ball')" [routerLink]="poke.data().name" role="listitem">
+                    <h5>#{{ poke.id}}</h5>
+                    <img class = "nav-img"  *ngIf="data.pokedexInfo[poke.id]?.shiny" src= '{{ poke.data().shiny }}' >
+                    <img class = "nav-img"  *ngIf="!(data.pokedexInfo[poke.id]?.shiny)" src= '{{ poke.data().img }}' >
+                    <h3>{{ poke.data().name }}</h3>
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && !(data.pokedexInfo[poke.id]?.ballType)" src="/assets/Bag_Poke_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Poké Ball'" src="/assets/Bag_Poke_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Premier Ball'" src="/assets/Bag_Premier_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Great Ball'" src="/assets/Bag_Great_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Ultra Ball'" src="/assets/Bag_Ultra_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Master Ball'" src="/assets/Bag_Master_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Beast Ball'" src="/assets/Bag_Beast_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dive Ball'" src="/assets/Bag_Dive_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dusk Ball'" src="/assets/Bag_Dusk_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Fast Ball'" src="/assets/Bag_Fast_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Friend Ball'" src="/assets/Bag_Friend_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heal Ball'" src="/assets/Bag_Heal_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Heavy Ball'" src="/assets/Bag_Heavy_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Level Ball'" src="/assets/Bag_Level_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Love Ball'" src="/assets/Bag_Love_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Lure Ball'" src="/assets/Bag_Lure_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Luxury Ball'" src="/assets/Bag_Luxury_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Moon Ball'" src="/assets/Bag_Moon_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Nest Ball'" src="/assets/Bag_Nest_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Net Ball'" src="/assets/Bag_Net_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Quick Ball'" src="/assets/Bag_Quick_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Repeat Ball'" src="/assets/Bag_Repeat_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Timer Ball'" src="/assets/Bag_Timer_Ball_Sprite.png">
+                    <img class='caught-img' *ngIf="(data.pokedexInfo[poke.id]?.caught) && data.pokedexInfo[poke.id]?.ballType === 'Dream Ball'" src="/assets/Bag_Dream_Ball_Sprite.png">
+                    <h4 class="pokemon-hidden" *ngIf="data.pokedexInfo[poke.id]?.hiddenAbility"> HA </h4>
+                    <!-- <h4 class="pokemon-individual" *ngIf="(data.pokedexInfo[poke.id]?.individualValue > 0)">{{ data.pokedexInfo[poke.id]?.individualValue}}iv</h4> -->
+                    <h4 class="pokemon-shiny" *ngIf="data.pokedexInfo[poke.id]?.shiny">✨</h4>
+                </mat-list-item>
+            </div>
+        </div>
+</mat-nav-list>

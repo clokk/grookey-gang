@@ -1,0 +1,35 @@
+<body>
+    <main>
+      <div *ngIf="afAuth.authState | async as user" class="logout">
+          <!-- <button mat-raised-button (click)="openUpdateDialog()" target="blank"> Update</button> -->
+          <br>
+        <p>
+          Logged in as <strong>{{ (this.profileService.profile | async)?.email }}</strong>
+        </p>
+        <p>
+          Nintendo Switch Friend Code: <strong>{{ (this.profileService.profile | async)?.friendCode }}</strong>
+        </p>
+        <p>
+          Game Title Version: <strong>{{ (this.profileService.profile | async)?.version }}</strong>
+        </p>
+        <p>
+          OT: <strong>{{ (this.profileService.profile | async)?.trainerID }}</strong>
+        </p>
+        <p>
+          Discord: <strong>{{ (this.profileService.profile | async)?.discordName }}</strong>
+        </p>
+        <div>
+            <a mat-raised-button (click)="openUpdateProfileDialog()" target="blank">Profile Update</a>
+        </div> 
+        <div class="divider"></div>
+        <div>
+            <button mat-raised-button [copy-clipboard]='dexURL' (click)="copySnack()">Copy Pokédex URL</button>
+        </div>
+        <div class="divider"></div>
+        <div>
+            <button mat-raised-button (click)="onLogout()">Logout</button>
+            <div class="divider"></div>
+          </div>
+      </div>
+    </main>
+  </body>

@@ -1,0 +1,23 @@
+:host {
+    text-align: center;
+    padding: 24px;
+}
+mat-card {
+    max-width: 450px;
+    background-color:#212121; 
+    margin: 0 auto 10px;
+}
+
+.caught-img {
+    width: 0.80em;
+  }
+
+.info-div {
+    font-size: 2.75em;
+}
+
+.back-button {
+    position: absolute;
+    left: 0px; 
+    margin: -10px 10px 10px;
+}

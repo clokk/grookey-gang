@@ -1,0 +1,83 @@
+<mat-sidenav-container class="sidenav-container">
+
+    <!-- SIDENAV -->
+  
+    <mat-sidenav #drawer class="sidenav" fixedInViewport
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [opened]="false">
+      <mat-toolbar>Menu</mat-toolbar>
+      <mat-nav-list *ngIf="!(afAuth.authState | async)">
+          <a mat-list-item routerLink="/" (click)="drawer.close()"><img class = "nav-img" src='assets/240pxGrookey.png'> Home</a>
+          <a mat-list-item routerLink="/directory" (click)="drawer.close()">🔎 Directory</a>
+          <a mat-list-item routerLink="/login" (click)="drawer.close()">🔑 Login</a>
+      </mat-nav-list>
+
+      <mat-nav-list *ngIf="afAuth.authState | async as user">
+          
+          <a mat-list-item routerLink="/" (click)="drawer.close()"><img class = "nav-img" src='assets/240pxGrookey.png'> Home</a>
+          <a mat-list-item routerLink="/pokedex" (click)="drawer.close()">📱 Galarian Pokédex</a>
+          <a mat-list-item routerLink="/directory" (click)="drawer.close()">🔎 Directory</a>
+          <a mat-list-item routerLink="/profile" (click)="drawer.close()"><img class="avatar" [src]="user.photoURL || 'assets/face_profile.png'">
+            Profile</a>
+  
+        </mat-nav-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content>
+  
+    <!-- TOP TOOLBAR-->
+  
+      <mat-toolbar>
+        <button 
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+  
+  
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+   
+        <span class="logo" routerLink="/"><img class = "lead" src='assets/240pxGrookey.png'></span>
+  
+        <span class="fill-space"></span>
+        <div *ngIf="!(isHandset$ | async)">
+          <mat-nav-list *ngIf="!(afAuth.authState | async)">  
+              <a mat-button routerLink="/directory">🔎 Directory</a>
+            <a mat-button routerLink="/login">🔑 Login</a>
+          </mat-nav-list>
+
+          <mat-nav-list *ngIf="afAuth.authState | async as user">
+              <a mat-button routerLink="/pokedex">📱 Galarian Pokédex</a>  
+              <a mat-button routerLink="/directory" (click)="drawer.close()">🔎 Directory</a>
+              <a mat-button routerLink="/profile" (click)="drawer.close()"><img class="avatar" [src]="user.photoURL || 'assets/face_profile.png'">
+                Profile</a>
+          </mat-nav-list>
+  
+        </div>
+  
+        <!-- DROPDOWN MENU -->
+  
+        <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Icon-button with a menu">
+          <mat-icon>more_vert</mat-icon>
+        </button>
+        
+        <mat-menu #menu="matMenu">
+          <a mat-menu-item href="mailto:connorleisz@gmail.com">
+            <i>💬</i>
+            <span>Email</span>
+          </a>
+          <a mat-menu-item target="_blank" href="https://discordapp.com/channels/@me/275153111188897792/">
+            <i>💬</i>
+            <span>Discord</span>
+          </a>
+        </mat-menu>
+      </mat-toolbar>
+  
+      <!-- TRANSCLUSION -->
+      <ng-content></ng-content>
+  
+    </mat-sidenav-content>
+  </mat-sidenav-container>

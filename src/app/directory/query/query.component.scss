@@ -1,0 +1,54 @@
+:host {
+    text-align: center;
+    padding: 24px;
+}
+mat-nav-list {
+    max-width: 600px;
+    background-color:#212121; 
+    padding: 0;
+    margin: 0 auto;
+}
+mat-list-item {
+
+    transition: transform 300ms ease;
+    &:hover {
+        transform: translateY(-3px);
+    }
+    transition: transform 300ms ease;
+}
+
+.nav-img {
+    width: 3.2em;
+    margin: 0 10px 5px;
+  }
+
+  .caught-img {
+    width: 1.5em;
+    margin: 0 10px;
+  }
+
+.pokemon-hidden {
+    position: absolute;
+    right: 0px;
+    padding-right: 100px;
+    padding-bottom: 40px;
+}
+
+.pokemon-individual {
+    position: absolute;
+    right: 0px;
+    padding-right: 60px;
+    padding-bottom: 40px;
+}
+
+.pokemon-shiny {
+    position: absolute;
+    right: 0px;
+    padding-right: 25px;
+    padding-bottom: 40px;
+}
+
+.list-stats {
+    display: flex;
+    justify-content: space-around;
+}
